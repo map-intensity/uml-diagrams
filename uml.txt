@@ -1,0 +1,69 @@
+classDiagram
+    class Input{
+        +String input_path
+        +String gt_Path
+        +Array[2] size
+        +read_image(String path): Array
+        +resize_image(Array image, Array[2] size): Array
+    }
+    class ObjectDetection{
+        +String name
+        +String device
+        +String weights
+        +int class
+        +bool train
+        +String input_path
+        +String gt_path
+        +load_weights(String name, String weights): PyTorchModel
+        +train_model()
+        +inference(PytorchModel model, Array image): Array
+
+    }
+
+    class Check{
+        +String text_file
+        +String yaml_file
+        +sanity_check(String text_file, String yaml_file): bool
+        +fix_text_file(String text_file, String yaml_file)
+    }
+    class Preprocess{
+        +String text_file
+        +generate_gt_map(String text_file): Array
+    }
+
+    class IntensityEstimation{
+        +String name
+        +String intensity_map
+        +String gt_map
+        +bool train
+        +String weights
+        +load_weights(String name, String weights): PyTorchModel
+        +train_model()
+        +inference(PyTorchModel model, Array intensity_map): Array
+    }
+
+    %% class Visualize{
+    %%     +visualize_boundingboxes(Array image, list bboxs): Array
+    %%     +visualize_densitymap(Array int)
+    %% }
+
+    %% Animal <|-- Duck
+    %% Animal <|-- Fish
+    %% Animal <|-- Zebra
+    %% Animal : +int age
+    %% Animal : +String gender
+    %% Animal: +isMammal()
+    %% Animal: +mate()
+    %% class Duck{
+    %%   +String beakColor
+    %%   +swim()
+    %%   +quack()
+    %% }
+    %% class Fish{
+    %%   -int sizeInFeet
+    %%   -canEat()
+    %% }
+    %% class Zebra{
+    %%   +bool is_wild
+    %%   +run()
+    %% }
